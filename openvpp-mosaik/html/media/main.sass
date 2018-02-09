@@ -1,0 +1,246 @@
+//
+// Colors
+//
+$gray_logo: hsl(189, 3%, 46%)
+$green_logo:  hsl(65, 100%, 40%)
+$green_darker: hsl(67, 75%, 38%)
+$green_dark: hsl(68, 73%, 35%)
+$purple: hsl(281, 61%, 26%)
+$blue_light: hsl(205, 65%, 57%)
+$blue_dark: hsl(205, 75%, 40%)
+
+$c_main_bg: hsl(0, 0%, 100%)
+$c_main_text: hsl(0, 0%, 10%)
+$c_main_text_lighter: hsl(0, 0%, 40%)
+$c_main_link: $c_main_text
+$c_main_link_active: $green_dark
+
+$c_border: hsl(0, 0%, 70%)
+
+$c_header_bg: $green_darker
+$c_header_bg_hover: $green_dark
+$c_header_text: hsl(0, 0%, 100%)
+$c_header_link: $c_header_text
+$c_header_link_active: hsl(0, 0%, 100%)
+
+$c_footer_bg: $gray_logo
+$c_footer_text: hsl(0, 0%, 95%)
+$c_footer_link: $c_footer_text
+$c_footer_link_active: $green_logo
+
+
+//
+// Fonts
+//
+$font_main: 'Open Sans', sans-serif
+$font_special: 'Ubuntu', sans-serif
+$font_code: 'Menlo', 'Consolas', monospace
+
+
+html, button, text
+  font-family: $font_main
+  font-weight: 400
+
+strong, b
+  font-weight: 600
+
+h1, h2, h3, h4, h5, h6, .title
+  font-family: $font_special
+  font-weight: 400
+
+//
+// General styles
+//
+*
+  margin: 0
+  padding: 0
+html
+  min-height: 100%
+  position: relative
+
+body
+  background: $c_main_bg
+  font-size: 16px
+  font-feature-settings: 'onum' 1, 'pnum' 1, 'liga' 1
+  line-height: 1.5
+  color: $c_main_text
+.canvas
+  font-feature-settings: 'onum' 0, 'pnum' 0, 'liga' 1
+
+a
+  color: $c_main_link
+  &:hover, &:focus, &:active
+    color: $c_main_link_active
+
+h1, h2, h3, h4, h5, h6, .title
+  margin: 1em 0 .5em 0
+  line-height: 1.2
+
+h1, .title
+  font-size: 1.5em
+  margin-top: 0
+  text-align: center
+h2, .subtitle
+  font-size: 1.25em
+h3
+  font-size: 1.125em
+
+//
+// Header and footer
+//
+.header
+  color: $c_header_text
+  background-color: $c_header_bg
+  box-shadow: 0 .125em .125em hsl(0, 0%, 50%)
+  a
+    padding: .5em 1em
+    display: inline-block
+    color: $c_header_link
+    text-decoration: none
+    &:active, &:focus, &:hover
+      color: $c_header_link_active
+  nav
+    margin: 0 auto
+    width: 1000px
+    font-size: 1.125em
+    ul
+      display: flex
+      li
+        display: inline-block
+        transition: all .25s linear
+        &.active, &:hover
+          background-color: $c_header_bg_hover
+
+.footer
+  font-size: .75em
+  text-align: center
+  padding: .25em
+  color: $c_footer_text
+  background-color: $c_footer_bg
+  box-shadow: inset 0 .125em .125em hsl(0, 0%, 30%)
+  p
+    margin: 0
+  a
+
+//
+// Charts
+//
+.settings div
+  border: 0
+  border-radius: .25em
+  padding: .75em
+  margin-bottom: 1em
+  background: $c_header_bg
+  box-shadow: 0 .25em .5em hsl(0, 0%, 50%)
+  color: $c_header_text
+  a
+    color: $c_header_link
+    text-decoration: none
+    cursor: pointer
+    &:active, &:focus, &:hover
+      color: $c_header_link_active
+      text-decoration: underline
+
+fieldset
+  border: 0
+  // legend
+  //   position: relative
+  //   top: 1.25em
+  input[type=checkbox]
+    margin-right: .75em
+  svg.legend
+    border-radius: .125em
+    display: inline-block
+    margin-right: .5em
+    margin-bottom: -.125em
+    width: 1em
+    height: 1em
+    background-color: $c_main_bg
+
+svg.canvas, svg.legend
+  .layer
+    rect
+      // stroke: white
+      // stroke-width: 1px
+      // shape-rendering: crispEdges
+      // transition: all .25s linear
+      &.highlight
+        fill: $gray_logo
+        // transition: all .25s linear
+  line, .line
+    fill: none
+    stroke-width: 2px
+    &.blue_dark
+      stroke: $blue_dark
+    &.blue_light
+      stroke: $blue_light
+    &.gray
+      stroke: $gray_logo
+    &.purple
+      stroke: $purple
+    &.link
+      stroke: $gray_logo
+      stroke-width: 2px
+  circle
+    stroke: none
+    &.gray
+      fill: rgba($gray_logo, .5)
+    &.green
+      fill: rgba($green_darker, .5)
+    &.gray_noalpha
+      fill: $gray_logo
+    &.green_noalpha
+      fill: $green_darker
+    &.node
+      fill: $green_darker
+    &.msg
+      fill: darken($gray_logo, 25%)
+  .axis
+    path, line
+      fill: none
+      stroke: #333
+      stroke-width: 1px
+      shape-rendering: crispEdges
+  .axislabel
+    font-style: italic
+
+//
+// Flexbox layout
+//
+.wrapper
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 100%
+  display: flex
+  flex-direction: column
+  flex-wrap: nowrap
+  justify-content: flex-start
+  align-content: flex-start
+  align-items: stretch
+  .header
+    flex: 0 1 auto
+    margin-bottom: 1em
+  .content
+    &.active
+      display: flex
+    display: none
+    flex: 0 1 100%
+    flex-direction: row
+    flex-wrap: nowrap
+    justify-content: center
+    align-content: center
+    align-items: stretch
+    .canvas
+      flex: 0 1 80%
+      margin: 0 0 0 2%
+    .settings
+      flex: 0 1 14%
+      margin: 0 2%
+      min-width: 300px
+  .footer
+    flex: 0 1 auto
+    margin-top: 1em

@@ -1,0 +1,13 @@
+- Die Laengen der schedules etc. stimmen vor der Verhandlung.
+- Start- und Endzeiten vor Verhandlung sind korrekt.
+- Das UnitModel generiert für den zweiten Tag schedules ab dem richtigen Zeitpunkt.
+- Die schedule_ids sind am zweiten Tag auch 0,0,0, d.h. es wurden neue Fahrpläne erzeugt und auch so kommuniziert, sind im Planner und im UserAgent gleich für die solution.
+
+- Entsprechen die Fahrpläne im DAP am zweiten Tag den schedules aus der solution? Ja, geprüft in Excel, beginnen korrekt um 22 Uhr. Warum ist die performance dann schlecht?
+
+- Die Candidates sind bereits bei den Agenten korrekt, aber die perf ist schlecht. warum?
+- Die Zielfunktion wird an die Agenten als perf_func mitgegeben, vom Controller, verweist dann aber auf wm.objective_function. Ist hier ggf. das falsche Ziel vorgegeben?
+
+- in UserAgent.get_day_ahead_plan wird das Verhandlungsergebnis als forecast gesetzt. Ist das korrekt? TODO FIXME annotiert.
+
+- in der Objectivefunction (planning.py -> WorkingMemory) ist bei der Verhandlung am zweiten Tag das target für den laufenden Tag anders als die schedules. Wir haben also ggf. ein Problem bei der Umsetzung des Verhandlungsergebnisses. Ich erwarte ein anderes Ergebnis im ersten Bereich (aktueller, bereits beplanter Tag) des target schedules, nicht aber im zweiten. Bei Planner.init_negotiation im Planner wird schon ein anderes Ziel vorgegeben. Was ist korrekt?
