@@ -507,9 +507,6 @@ class Planner(unit.Planner):
                 new_os = os
                 new_sid = sid
 
-        if current_sid == new_sid:
-            return None
-
         return new_os, new_sid
 
     # def _update_ctrl_agent(self, msgs_sent):
