@@ -1,7 +1,0 @@
--e ../chpsim
--e .
-flake8
-pytest
-pytest-asyncio
-pytest-cov
-tox
