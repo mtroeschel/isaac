@@ -2,5 +2,6 @@
   <component name="GithubSettings">
     <option name="LOGIN" value="mnebel-wenner" />
     <option name="AUTH_TYPE" value="BASIC" />
+    <option name="VALID_GIT_AUTH" value="false" />
   </component>
 </application>
