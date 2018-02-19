@@ -1,0 +1,31 @@
+<application>
+  <component name="PyTestFrameworkService">
+    <option name="SDK_TO_PYTEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_Github/bin/python3.5" value="true" />
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_NEDS/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/mosaik/bin/python3.5" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/nedssimulation/bin/python" value="false" />
+        <entry key="/usr/bin/python2.7" value="false" />
+      </map>
+    </option>
+    <option name="SDK_TO_NOSETEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_Github/bin/python3.5" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_NEDS/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/mosaik/bin/python3.5" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/nedssimulation/bin/python" value="false" />
+        <entry key="/usr/bin/python2.7" value="false" />
+      </map>
+    </option>
+    <option name="SDK_TO_TRIALTEST">
+      <map>
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_Github/bin/python3.5" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/ISAAC_NEDS/bin/python" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/mosaik/bin/python3.5" value="false" />
+        <entry key="$USER_HOME$/.virtualenvs/nedssimulation/bin/python" value="false" />
+        <entry key="/usr/bin/python2.7" value="false" />
+      </map>
+    </option>
+  </component>
+</application>
