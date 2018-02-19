@@ -75,9 +75,14 @@ class Monitoring:
         connections.
         """
         assert self._topgroup
+
+        dtype = np.dtype([
+            ('agent 1', 'S100'),
+            ('agent 2', 'S100'),
+        ])
         # create encoded data set
         data = np.array([(a.encode(), b.encode())
-                         for a, b in connections])
+                         for a, b in connections], dtype=dtype)
         # store data in group
         self._topgroup.create_dataset('topology', data=data)
 
