@@ -446,26 +446,29 @@ class Planner(unit.Planner):
         return (sysconf, candidate)
 
     def _decide(self, sysconf, candidate):
-        """Try to find a schedule that leads to a better candidate."""
+        """Try to find a schedule that improves the performance of
+        the current sysconfig and leads to a better candidate."""
         name = self.name
         current_sid = sysconf.data(name).sid
         best = candidate.data(name)
         best_os, best_sid = best.os, best.sid  # Expand "best"
-        new_os = self._get_new_os(current_sid, candidate, name)
+        new_os, new_sid = self._get_new_os(sysconf, name)
 
-        if new_os is not None:
-            # We have new os that is locally better then the old one. Check if
-            # it is also globally better.
-            new_os, new_sid = new_os  # new_os is actually a tuple!
-            new_candidate = candidate.update(name, new_os, new_sid,
-                                             self.wm.objective_function)
-            if new_candidate.perf > candidate.perf:
-                # We found a new candidate
-                candidate = new_candidate
-                best_os = new_os
-                best_sid = new_sid
-
-                # print("new schedule: ", best_sid)
+        # We have the os that is locally the best on the basis of the current Sysconf.
+        # Check if this configuration is also globally better than the current Candidate.
+        new_candidate = Candidate(
+                agent=self.name,
+                idx=sysconf.idx,
+                cs=sysconf.cs,
+                sids=sysconf.sids, perf=None).update(
+                    name, new_os, new_sid,
+                    self.wm.objective_function
+                )
+        if new_candidate.perf > candidate.perf:
+            # We found a new candidate
+            candidate = new_candidate
+            best_os = new_os
+            best_sid = new_sid
 
         if current_sid != best_sid:
             # We need a new counter value if
@@ -487,38 +490,24 @@ class Planner(unit.Planner):
             logger.debug('%s sending message %d', self.agent, wm.msgs_out)
             aiomas.async(neighbor.update(wm.sysconf, wm.candidate))
 
-    def _get_new_os(self, current_sid, candidate, name):
-        """Return a new *os* from the list of possible schedules *ps* if we
-        find one that's better then the *current_sid*.
-
-        Return ``None`` if we don't find one.
+    def _get_new_os(self, sysconf, name):
+        """Return a tuple *os, sid* from the list of possible schedules *ps* that maximizes
+        the performance of the current sysconfig.
 
         """
         best_perf = float('-inf')
         new_os = None
         new_sid = None
         for sid, _, os in self.wm.ps:
-            # print(sid, os)
             # Currently, we use the "global" check here, but this might change
             # so don't return the candidate directly.
-            new_c = candidate.update(name, os, sid, self.wm.objective_function)
-            if new_c.perf > best_perf:
-                best_perf = new_c.perf
+            new_s = sysconf.update(name, os, sid, self.wm.objective_function)
+            if self.wm.objective_function(new_s.cs) > best_perf:
+                best_perf = new_s.perf
                 new_os = os
                 new_sid = sid
 
         return new_os, new_sid
-
-    # def _update_ctrl_agent(self, msgs_sent):
-    #     wm = self.wm
-    #     return self.agent.ctrl_agent.update_stats(
-    #         agent=self.name,
-    #         t=time.monotonic(),
-    #         perf=wm.candidate.perf,
-    #         n_os=len(wm.candidate.cs),  # Number of known op. scheds.
-    #         msgs_in=wm.msgs_in,
-    #         msgs_out=wm.msgs_out,
-    #         msgs_sent=msgs_sent)
 
     def _update_obs_agent(self, msgs_sent):
         wm = self.wm
