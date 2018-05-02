@@ -502,8 +502,9 @@ class Planner(unit.Planner):
             # Currently, we use the "global" check here, but this might change
             # so don't return the candidate directly.
             new_s = sysconf.update(name, os, sid)
-            if self.wm.objective_function(new_s.cs) > best_perf:
-                best_perf = new_s.perf
+            new_perf = self.wm.objective_function(new_s.cs)
+            if new_perf > best_perf:
+                best_perf = new_perf
                 new_os = os
                 new_sid = sid
 
